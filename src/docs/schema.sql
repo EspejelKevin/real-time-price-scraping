@@ -15,9 +15,6 @@ CREATE TABLE IF NOT EXISTS price_historical (
     product_id INTEGER NOT NULL,
     price DECIMAL(10, 2),
     date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    year INTEGER,
-    month INTEGER,
-    day INTEGER
 
     CONSTRAINT fk_product
     FOREIGN KEY(product_id)
@@ -29,7 +26,7 @@ CREATE TABLE IF NOT EXISTS logs (
     id SERIAL PRIMARY KEY,
     product_id INTEGER NOT NULL,
     error_message TEXT,
-    date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_product
     FOREIGN KEY(product_id)

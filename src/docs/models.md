@@ -1,3 +1,4 @@
+```mermaid
 erDiagram
     PRODUCT ||--o{ PRICE_HISTORICAL : "tiene muchos"
     PRODUCT ||--o{ LOGS : "genera"
@@ -19,9 +20,6 @@ erDiagram
         int product_id FK
         float price
         datetime date
-        int year
-        int month
-        int day
     }
     
     LOGS {
@@ -30,3 +28,4 @@ erDiagram
         string error_message
         datetime date
     }
+```
