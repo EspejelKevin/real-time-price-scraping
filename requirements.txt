@@ -1,4 +1,5 @@
 fastapi
 dependency-injector
 sqlalchemy
+pydantic-settings
 
