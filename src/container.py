@@ -1,6 +1,7 @@
 from dependency_injector import containers, providers
 
 from infrastructure import DatabaseConnection, SQLAlchemyProductRepository
+from application import RegisterProductUseCase
 from domain import Settings
 
 
@@ -23,4 +24,7 @@ class Container(containers.DeclarativeContainer):
         session_factory=db_session.provider
     )
 
-    
+    register_product_usecase = providers.Factory(
+        RegisterProductUseCase,
+        product_repository=product_repository
+    )
