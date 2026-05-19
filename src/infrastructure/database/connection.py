@@ -11,7 +11,8 @@ class DatabaseConnection:
         self._session_factory = sessionmaker(
             bind=self._engine,
             autoflush=False,
-            autocommit=False
+            autocommit=False,
+            expire_on_commit=False
         )
 
     @contextmanager

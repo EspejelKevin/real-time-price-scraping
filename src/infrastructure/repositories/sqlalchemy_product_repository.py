@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from typing import Callable, List, Optional
 from contextlib import AbstractContextManager
 
-from domain import Product, ProductRepository
+from src.domain import Product, ProductRepository
 
 
 class SQLAlchemyProductRepository(ProductRepository):
@@ -14,6 +14,7 @@ class SQLAlchemyProductRepository(ProductRepository):
     def save(self, product: Product) -> Product:
         with self._session_factory() as session:
             session.add(product)
+            session.flush()
             session.refresh(product)
             return product
     
