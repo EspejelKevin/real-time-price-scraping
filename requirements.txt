@@ -2,4 +2,5 @@ fastapi
 dependency-injector
 sqlalchemy
 pydantic-settings
-
+uvicorn
+pydantic[email]
