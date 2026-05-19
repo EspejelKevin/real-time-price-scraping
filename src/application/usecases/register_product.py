@@ -1,4 +1,4 @@
-from domain import ProductRepository, ProductDTO, Product
+from src.domain import ProductRepository, ProductDTO, Product
 
 
 class RegisterProductUseCase:
@@ -8,7 +8,7 @@ class RegisterProductUseCase:
     def execute(self, product_dto: ProductDTO) -> Product:
         product = Product(
             name=product_dto.name,
-            url=product_dto.url,
+            url=str(product_dto.url),
             store=product_dto.store,
             scraping_strategy=product_dto.scraping_strategy,
             selector=product_dto.selector,
