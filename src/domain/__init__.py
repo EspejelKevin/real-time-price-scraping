@@ -4,7 +4,7 @@ from .models.product import Product
 from .models.base import Base
 from .settings import Settings, get_settings
 from .interfaces.product_repository import ProductRepository
-from .dtos.product_dto import ProductDTO
+from .dtos.product_dto import ProductDTO, ProductResponse
 
 __all__ = [
     'Base',
@@ -14,5 +14,6 @@ __all__ = [
     'Settings', 
     'get_settings', 
     'ProductRepository',
-    'ProductDTO'
+    'ProductDTO',
+    'ProductResponse'
 ]
