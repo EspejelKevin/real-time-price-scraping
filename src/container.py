@@ -1,8 +1,8 @@
 from dependency_injector import containers, providers
 
-from infrastructure import DatabaseConnection, SQLAlchemyProductRepository
-from application import RegisterProductUseCase
-from domain import Settings
+from src.infrastructure import DatabaseConnection, SQLAlchemyProductRepository
+from src.application import RegisterProductUseCase
+from src.domain import Settings
 
 
 class Container(containers.DeclarativeContainer):
