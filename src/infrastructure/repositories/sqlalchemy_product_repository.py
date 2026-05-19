@@ -28,8 +28,9 @@ class SQLAlchemyProductRepository(ProductRepository):
             result = session.execute(statement)
             return list(result.scalars().all())
 
-    def update_status(self, product_id: int, status: str) -> None:
+    def update_status(self, product_id: int, status: str) -> Optional[bool]:
         with self._session_factory() as session:
             product = session.get(Product, product_id)
             if product:
                 product.status = status
+                return True

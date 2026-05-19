@@ -9,6 +9,7 @@ class Settings(BaseSettings):
 
     STORE_REGEX: str
     SCRAPING_STRATEGY_REGEX: str
+    PRODUCT_STATUS_REGEX: str
 
 
 @lru_cache

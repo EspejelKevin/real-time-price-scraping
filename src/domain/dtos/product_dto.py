@@ -21,3 +21,7 @@ class ProductResponse(BaseModel):
     status: str
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class UpdateStatusDTO(BaseModel):
+    status: str = Field(..., pattern=settings.PRODUCT_STATUS_REGEX, description='Status actual del producto')

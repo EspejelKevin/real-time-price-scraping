@@ -1,7 +1,7 @@
 from dependency_injector import containers, providers
 
 from src.infrastructure import DatabaseConnection, SQLAlchemyProductRepository
-from src.application import RegisterProductUseCase, GetProductUseCase, GetProductsUseCase
+from src.application import RegisterProductUseCase, GetProductUseCase, GetProductsUseCase, UpdateProductUseCase
 from src.domain import Settings
 
 
@@ -36,5 +36,10 @@ class Container(containers.DeclarativeContainer):
 
     get_product_usecase = providers.Factory(
         GetProductUseCase,
+        product_repository=product_repository
+    )
+
+    update_product_usecase = providers.Factory(
+        UpdateProductUseCase,
         product_repository=product_repository
     )
