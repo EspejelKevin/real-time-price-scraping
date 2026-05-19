@@ -17,7 +17,7 @@ class Product(Base):
     scraping_strategy: Mapped[str] = mapped_column(String(50), default='CSS')
     selector: Mapped[str] = mapped_column(Text, nullable=False)
     target_price: Mapped[float] = mapped_column(Numeric(12, 2), nullable=False)
-    email: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    email: Mapped[str] = mapped_column(String(255), nullable=False)
     status: Mapped[str] = mapped_column(String(50), default='activo')
 
     created_at: Mapped[datetime.datetime] = mapped_column(DateTime, default=datetime.datetime.now(datetime.timezone.utc))
