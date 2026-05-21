@@ -1,6 +1,4 @@
 from fastapi import APIRouter, Depends, status
-from fastapi.encoders import jsonable_encoder
-from fastapi.responses import JSONResponse
 from dependency_injector.wiring import inject, Provide
 
 from typing import List
@@ -16,21 +14,23 @@ def register_product(request: ProductDTO,
                      usecase: RegisterProductUseCase = Depends(Provide['register_product_usecase'])):
     return usecase.execute(request)
 
+
 @router.get('', response_model=List[ProductResponse], status_code=status.HTTP_200_OK)
 @inject
 def get_products(usecase: GetProductsUseCase = Depends(Provide['get_products_usecase'])):
     return usecase.execute()
 
-@router.get('/{product_id}')
+
+@router.get('/{product_id}', response_model=ProductResponse, status_code=status.HTTP_200_OK)
 @inject
 def get_product(product_id: int,
                      usecase: GetProductUseCase = Depends(Provide['get_product_usecase'])):
-    response, status_code = usecase.execute(product_id)
-    return JSONResponse(jsonable_encoder(response), status_code=status_code) 
+    return usecase.execute(product_id) 
 
-@router.put('/{product_id}')
+
+@router.put('/{product_id}', status_code=status.HTTP_200_OK)
 @inject
 def update_product(product_id: int, request: UpdateStatusDTO,
                      usecase: UpdateProductUseCase = Depends(Provide['update_product_usecase'])):
-    response, status_code = usecase.execute(product_id, request)
-    return JSONResponse(jsonable_encoder(response), status_code=status_code) 
+    usecase.execute(product_id, request)
+    return {'message': f'product {product_id} updated with success'}

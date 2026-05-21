@@ -33,4 +33,3 @@ class SQLAlchemyProductRepository(ProductRepository):
             product = session.get(Product, product_id)
             if product:
                 product.status = status
-                return True

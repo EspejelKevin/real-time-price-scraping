@@ -1,4 +1,4 @@
-from fastapi import status
+from fastapi import status, HTTPException
 
 from src.domain import ProductRepository, UpdateStatusDTO
 
@@ -8,9 +8,10 @@ class UpdateProductUseCase:
         self.product_repository = product_repository
 
     def execute(self, product_id: int, request: UpdateStatusDTO) -> dict:
-        result = self.product_repository.update_status(product_id, request.status)
+        existing_product = self.product_repository.get_by_id(product_id)
 
-        if not result:
-            return {'message': f'product not found with id: {product_id}'}, status.HTTP_404_NOT_FOUND
+        if not existing_product:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                detail=f'product not found with id {product_id}')
         
-        return {'message': f'product: {product_id} updated with success'}, status.HTTP_200_OK
+        self.product_repository.update_status(product_id, request.status)
