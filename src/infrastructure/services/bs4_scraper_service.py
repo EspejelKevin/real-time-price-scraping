@@ -1,11 +1,11 @@
 from curl_cffi.requests import AsyncSession
 
-from src.domain import ScraperService, Settings
+from src.domain import ScraperService
 from .scraping_strategies import CSSExtractionStrategy, XPathExtractionStrategy, MetaTagExtractionStrategy
 
 
 class BS4ScraperService(ScraperService):
-    def __init__(self, settings: Settings) -> None:
+    def __init__(self) -> None:
         self.headers = {
             "Accept-Language": "es-MX,es;q=0.9,en-US;q=0.8,en;q=0.7",
             "Cache-Control": "max-age=0"
