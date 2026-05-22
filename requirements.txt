@@ -7,3 +7,7 @@ pydantic[email]
 httpx
 beautifulsoup4
 apscheduler
+lxml
+curl_cffi
+playwright
+playwright-stealth
