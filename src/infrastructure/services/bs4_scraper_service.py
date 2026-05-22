@@ -28,6 +28,4 @@ class BS4ScraperService(ScraperService):
             response.raise_for_status()
             html_content = response.text
 
-        print(html_content)
-
         return strategy.extract(html_content, selector)
