@@ -4,3 +4,6 @@ sqlalchemy
 pydantic-settings
 uvicorn
 pydantic[email]
+httpx
+beautifulsoup4
+apscheduler
