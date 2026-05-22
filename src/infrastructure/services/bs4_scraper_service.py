@@ -1,27 +1,33 @@
-from bs4 import BeautifulSoup
-import httpx
+from curl_cffi.requests import AsyncSession
 
 from src.domain import ScraperService, Settings
+from .scraping_strategies import CSSExtractionStrategy, XPathExtractionStrategy, MetaTagExtractionStrategy
 
 
 class BS4ScraperService(ScraperService):
     def __init__(self, settings: Settings) -> None:
         self.headers = {
-            'User-Agent': settings.USER_AGENT
+            "Accept-Language": "es-MX,es;q=0.9,en-US;q=0.8,en;q=0.7",
+            "Cache-Control": "max-age=0"
         }
 
-    async def get_price(self, url: str, selector: str) -> float:
-        async with httpx.AsyncClient(headers=self.headers, follow_redirects=True) as client:
-            response = await client.get(url)
+        self.strategies = {
+            'CSS': CSSExtractionStrategy(),
+            'XPath': XPathExtractionStrategy(),
+            'MetaTag': MetaTagExtractionStrategy()
+        }
+
+    async def get_price(self, url: str, selector: str, strategy_name: str) -> float:
+        strategy = self.strategies.get(strategy_name)
+
+        if not strategy:
+            raise ValueError(f"La estrategia de scraping '{strategy_name}' no está soportada.")
+
+        async with AsyncSession(impersonate='chrome') as session:
+            response = await session.get(url, headers=self.headers, allow_redirects=True)
             response.raise_for_status()
+            html_content = response.text
 
-            beautiful_soup = BeautifulSoup(response.text, 'html.parser')
-            element = beautiful_soup.select_one(selector)
+        print(html_content)
 
-            if not element:
-                raise ValueError(f'Price not found with selector: {selector}')
-            
-            print('element: ', element.text)
-
-            price_text = element.text.replace('$', '').replace(',', '').strip()
-            return float(price_text)
+        return strategy.extract(html_content, selector)
