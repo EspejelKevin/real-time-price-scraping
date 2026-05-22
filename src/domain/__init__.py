@@ -4,6 +4,7 @@ from .models.product import Product
 from .models.base import Base
 from .settings import Settings, get_settings
 from .interfaces.product_repository import ProductRepository
+from .interfaces.scraper_service import ScraperService
 from .dtos.product_dto import ProductDTO, ProductResponse, UpdateStatusDTO
 
 __all__ = [
@@ -16,5 +17,6 @@ __all__ = [
     'ProductRepository',
     'ProductDTO',
     'ProductResponse',
-    'UpdateStatusDTO'
+    'UpdateStatusDTO',
+    'ScraperService'
 ]
