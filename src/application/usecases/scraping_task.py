@@ -11,6 +11,7 @@ class ScrapingTaskUseCase:
 
         try:
             current_price = await self.scraper.get_price(product.url, product.selector, product.scraping_strategy)
+            print(f'current_price: {current_price}')
 
             if current_price <= product.target_price:
                 print('Alerta de precio')
