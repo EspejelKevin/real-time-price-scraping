@@ -7,7 +7,7 @@ class UpdateProductUseCase:
     def __init__(self, product_repository: ProductRepository) -> None:
         self.product_repository = product_repository
 
-    def execute(self, product_id: int, request: UpdateStatusDTO) -> dict:
+    def execute(self, product_id: int, request: UpdateStatusDTO) -> None:
         existing_product = self.product_repository.get_by_id(product_id)
 
         if not existing_product:
