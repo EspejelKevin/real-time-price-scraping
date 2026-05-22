@@ -16,7 +16,7 @@ class APSchedulerAdapter:
     def start(self) -> None:
         self.scheduler.add_job(
             self._job_wrapper,
-            trigger=IntervalTrigger(minutes=self.settings.INTERVAL_TIME),
+            trigger=IntervalTrigger(seconds=self.settings.INTERVAL_TIME),
             id=self.settings.JOB_ID,
             name=self.settings.JOB_NAME,
             replace_existing=True
