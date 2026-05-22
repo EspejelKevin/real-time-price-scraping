@@ -1,6 +1,10 @@
 from dependency_injector import containers, providers
 
-from src.infrastructure import DatabaseConnection, SQLAlchemyProductRepository, BS4ScraperService, PlayWrightScraper
+from src.infrastructure import (DatabaseConnection,
+                                SQLAlchemyProductRepository, 
+                                BS4ScraperService, 
+                                PlayWrightScraper, 
+                                SQLAlchemyPriceHistoricalRepository)
 from src.application import (RegisterProductUseCase,
                              GetProductUseCase, 
                              GetProductsUseCase, 
@@ -26,6 +30,11 @@ class Container(containers.DeclarativeContainer):
 
     product_repository = providers.Factory(
         SQLAlchemyProductRepository,
+        session_factory=db_session.provider
+    )
+
+    price_historical_repository = providers.Factory(
+        SQLAlchemyPriceHistoricalRepository,
         session_factory=db_session.provider
     )
 
@@ -61,6 +70,7 @@ class Container(containers.DeclarativeContainer):
     scraping_task = providers.Factory(
         ScrapingTaskUseCase,
         product_repository=product_repository,
+        price_historical_repository=price_historical_repository,
         scraper=scraper_service_playwright
     )
 
